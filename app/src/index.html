@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>File upload by ipfs</title>
+  <title>File upload by ipfs + smart contract</title>
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -15,26 +15,26 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-sm-push-2">
-        <h2 class="text-center">File upload by ipfs</h2>
+        <h2 class="text-center">File upload by ipfs + smart contract</h2>
         <hr/>
         <br/>
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-8 col-sm-push-4">
-        <label for="InputFile" class="btn btn-default">ファイル選択
-          <input class="hide" type="file" id="InputFile" onchange="$('#file_name').text($(this).val())" />
-        </label>
-        <span id="file_name"></span>
-        <input class="btn btn-primary" type="submit" name="submit" value="ファイルのアップロード" id="Submit">
-      </div>
+      <form id="target">
+        <div class="col-md-2 col-md-offset-5" id="target">
+            <label for="inputFile" class="btn btn-default">ファイルを選択して下さい
+                <input class="hide" type="file" id="inputFile" onchange="$('#file_name').text($(this).val())" />
+              </label>
+              <span id="file_name"></span>
+              <br/><br/>
+              <input class="btn btn-primary" type="submit" name="submit" value="ファイルのアップロード" id="test">
+              </div>
+      </form>
     </div>
   </div>
-  </div>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/bootstrap.min.js"></script>
   <script src="js/web3.min.js"></script>
   <script src="js/truffle-contract.js"></script>
