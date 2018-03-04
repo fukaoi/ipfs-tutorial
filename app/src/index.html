@@ -23,7 +23,7 @@
     <div class="row">
       <form id="target">
         <div class="col-md-2 col-md-offset-5" id="target">
-          <label for="inputFile" class="btn btn-default">ファイルを選択して下さい
+          <label for="inputFile" class="btn btn-default">ファイルを選択下さい
             <input class="hide" type="file" id="inputFile" onchange="$('#file_name').text($(this).val())" />
           </label>
           <span id="file_name"></span>
@@ -35,6 +35,10 @@
     </div>
   </div>
 
+  <script src="https://wzrd.in/standalone/concat-stream@latest"></script>
+  <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
+  integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
+  crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/web3.min.js"></script>

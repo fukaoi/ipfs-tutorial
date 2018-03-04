@@ -1,14 +1,13 @@
 // https://ipfs.io/docs/api/
 // https://github.com/ipfs/js-ipfs-api
 
-const ipfsAPI = require('ipfs-api')
-
 App = {
   web3Provider: null,
   contracts: {},
+  ipfsApi: {},
 
   init: function () {
-    App.ipfsApi = ipfsAPI('localhost', '5001')
+    App.ipfsApi = window.IpfsApi('localhost', '5001')
     return App.initWeb3();
   },
 
@@ -37,10 +36,11 @@ App = {
 
   handleSubmit: function (event) {
     event.preventDefault();
-    let file = event.target[0].files;
+    let file = event.target[0].files[0];
     let reader = new window.FileReader();
     reader.onloadend = () => App.saveIpfs(reader);
-    // reader.readAsArrayBuffer(file);
+    console.log(file);
+    reader.readAsArrayBuffer(file);
   },
 
   saveIpfs: function (reader) {
