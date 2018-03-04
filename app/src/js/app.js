@@ -12,6 +12,7 @@ App = {
 
   bindEvents: function () {
     $('#target').submit(App.handleSubmit);
+    $('#result').html = "aaaa";
   },
 
   handleSubmit: function (event) {
@@ -29,7 +30,8 @@ App = {
         console.error(err)
         return
       }
-      let url = `https://ipfs.io/ipfs/${result[0].hash}`
+      const url = `https://ipfs.io/ipfs/${result[0].hash}`
+      $('#result').html(url);
       console.log(`Url --> ${url}`)
     })
   }
