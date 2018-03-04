@@ -1,4 +1,5 @@
 // https://ipfs.io/docs/api/
+// https://github.com/ipfs/js-ipfs-api
 
 App = {
   web3Provider: null,
