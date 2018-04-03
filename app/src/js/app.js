@@ -2,6 +2,9 @@
 // https://github.com/ipfs/js-ipfs-api
 // before ipfs daemon startup, Should ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
 
+//todo: regist type 
+// timestamp, filename     
+
 App = {
   ipfsApi: {},
 
