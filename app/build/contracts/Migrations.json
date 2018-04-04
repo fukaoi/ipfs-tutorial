@@ -1380,8 +1380,14 @@
       "links": {},
       "address": "0x8cdaf0cd259887258bc13a92c0a6da92698644c0",
       "transactionHash": "0xa40b9251e8df2a527453e7f91b38c13621fdadcd868a33c462e0a5f26bef8ba4"
+    },
+    "5963": {
+      "events": {},
+      "links": {},
+      "address": "0xdded73ec15cf1c219d89a5e2dae364cbcd3a1244",
+      "transactionHash": "0x39f8d8c66be9761d521154b515fc7f32df2f09b4a8676934bf2e387bcf7dd55f"
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-04-04T01:35:11.898Z"
+  "updatedAt": "2018-04-04T02:28:10.862Z"
 }
