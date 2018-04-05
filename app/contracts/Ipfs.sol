@@ -11,14 +11,14 @@ contract Ipfs {
 
     function setUploadFileInfo(address _address, string _name, string _url) public {
         // require(bytes(name).length >= 0);
-        var fileinfo = fileinfos[_address];
+        FileInfos storage fileinfo = fileinfos[_address];
         fileinfo.name = _name;
         fileinfo.url = _url;
 
         files.push(_address) - 1;
     }
 
-    function getUploadFileInfos() public returns(address[]) {
+    function getUploadFileInfos() public view returns(address[]) {
         return files;
     }
 }
