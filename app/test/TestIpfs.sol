@@ -12,7 +12,9 @@ contract TestIpfs {
         Assert.equal(returnedId, expected, "Adoption of pet ID 8 be recorded");
     }
 
-    function TestA() public {
-        // Assert.equal(1, 1, "aaa");
+    function TestA() public view {
+        Ipfs ipfs = Ipfs(DeployedAddresses.Ipfs());
+        ipfs.getUploadFileInfos();
+        // Assert.equal(ipfs, ipfs);
     }
 }
