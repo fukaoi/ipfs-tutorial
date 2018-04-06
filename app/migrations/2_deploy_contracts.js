@@ -1,6 +1,6 @@
-const Adoption = artifacts.require("Adoption");
+var Ipfs = artifacts.require("./Ipfs.sol");
 
 module.exports = (deployer) => {
-  deployer.deploy(Adoption);
+  deployer.deploy(Ipfs);
 }
 
