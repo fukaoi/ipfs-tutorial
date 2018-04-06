@@ -6,19 +6,29 @@ contract Ipfs {
     string url;
   }
 
-  mapping (address => FileInfos) fileinfos;
-  address[] public files;
+  mapping (uint => FileInfos) fileinfos;
+  uint[] public files;
+  string public storedMsg;
 
-  function setUploadFileInfo(address _address, string _name, string _url) public {
+  function segtUploadFileInfo(uint _id, string _name, string _url) public {
    // require(bytes(name).length >= 0);
-    FileInfos storage fileinfo = fileinfos[_address];
+    FileInfos storage fileinfo = fileinfos[_id];
     fileinfo.name = _name;
     fileinfo.url = _url;
 
-    files.push(_address) - 1;
+    files.push(_id) - 1;
   }
 
-  function getUploadFileInfos() public view returns(address[]) {
+  function getUploadFileInfos() public view returns(uint[]) {
     return files;
+  }
+
+  // メッセージを保存します。
+  function set(string _message) public {
+    storedMsg = _message;
+  }  
+
+  function get() public view returns(string) {
+    return storedMsg;
   }
 }
