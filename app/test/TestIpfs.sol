@@ -7,8 +7,8 @@ import "../contracts/Ipfs.sol";
 contract TestIpfs {
   function testGet() public {
     Ipfs ipfs = Ipfs(DeployedAddresses.Ipfs());
-    ipfs.set("aaaaaaa");
-    string a = ipfs.get();
+    ipfs.setUploadFileInfo(1, "aaaaaaa", "bbbb");
+    FileInfos f = ipfs.getUploadFileInfos();
     // Assert.equal(returnedId, expected, "Adoption of pet ID 8 be recorded");
   }
 
