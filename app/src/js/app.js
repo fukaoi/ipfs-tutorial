@@ -1,10 +1,8 @@
 // https://ipfs.io/docs/api/
 // https://github.com/ipfs/js-ipfs-api
 // before ipfs daemon startup, Should ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+// before geth daemon startup, geth --dev --rpc --rpccorsdomain "*"'
 
-//todo: regist type 
-// timestamp, filename     
-// var web3 = require('web3');
 App = {
   ipfsApi: {},
   web3: {},
@@ -12,31 +10,25 @@ App = {
 
   init: function () {
     App.ipfsApi = window.IpfsApi('localhost', '5001');
-    App.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
-    if (typeof web3 !== 'undefined') {
-      web3Provider = web3.currentProvider;
-    } else {
-      web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
-    }
-    web3 = new Web3(web3Provider);
-    console.log(web3);
+
+    web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+    App.web3 = new Web3(web3Provider);
     $.getJSON('Ipfs.json', function (data) {
-      var AdoptionArtifact = data;
-      App.contracts.Adoption = TruffleContract(AdoptionArtifact);
-      App.contracts.Adoption.setProvider(App.web3Provider);
-      console.log(App.contracts.Adoption);
+      var IpfsArtifact = data;
+      App.contracts.Ipfs = TruffleContract(IpfsArtifact);
+      App.contracts.Ipfs.setProvider(web3Provider);
     });
     return App.bindEvents();
-    App.bindEvents();
   },
 
   bindEvents: function () {
     $('#target').submit(App.handleSubmit);
-    $('#result').html = "aaaa";
+    $('#result').html = "";
   },
 
   handleSubmit: function (event) {
-    console.log(web3.eth.accounts[0]);
+    console.log(App.web3.eth);
+    console.log(App.web3.eth.coinbase);
     event.preventDefault();
     const file = event.target[0].files[0];
     const reader = new window.FileReader();
