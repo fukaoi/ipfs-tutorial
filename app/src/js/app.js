@@ -18,7 +18,6 @@ App = {
       web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
     }
     web3 = new Web3(web3Provider);
-    console.log(web3.version);
     App.bindEvents();
   },
 
@@ -29,6 +28,7 @@ App = {
 
   handleSubmit: function (event) {
     console.log(web3);
+    web3.eth.contract
     event.preventDefault();
     const file = event.target[0].files[0];
     const reader = new window.FileReader();
