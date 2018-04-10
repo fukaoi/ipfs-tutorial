@@ -27,7 +27,7 @@ App = {
   },
 
   handleSubmit: function (event) {
-    console.log(web3);
+    console.log(web3.eth.accounts[0]);
     web3.eth.contract
     event.preventDefault();
     const file = event.target[0].files[0];
