@@ -27,7 +27,7 @@ App = {
   },
 
   handleSubmit: function (event) {
-    console.log(App.web3.eth);
+    console.log(App.contracts.Ipfs);
     console.log(App.web3.eth.coinbase);
     event.preventDefault();
     const file = event.target[0].files[0];
