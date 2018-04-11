@@ -10,13 +10,21 @@ App = {
 
   init: function () {
     App.ipfsApi = window.IpfsApi('localhost', '5001');
-
-    web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
-    App.web3 = new Web3(web3Provider);
+    var web3 = new Web3();
     $.getJSON('Ipfs.json', function (aritifact) { 
-      console.log(aritifact);
-      App.contracts = TruffleContract(aritifact);
-      App.contracts.setProvider(web3Provider);
+      // App.contracts = new TruffleContract(aritifact);
+      web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
+      // App.contracts.deployed().then((test) => {console.log(test)});
+      // console.log(App.contracts.deployed().then((aaa) => { console.log(aaa) }));
+      var address = '0xf2383e20cfdb937b18dd4d2f7c64e1860729cce2';
+      
+      var c = web3.eth.contract(aritifact.abi).at(address);
+      web3.eth.defaultAccount = web3.eth.accounts[0];
+      console.log(c);
+      c.set("fuckyou");
+      console.log(c.get());
+      // c.set("fuck");
+      // console.log(c.get());
     });
     return App.bindEvents();
   },
@@ -27,8 +35,7 @@ App = {
   },
 
   handleSubmit: function (event) {
-    console.log(App.contracts);
-    console.log(App.web3.eth.mining);
+    
     event.preventDefault();
     const file = event.target[0].files[0];
     const reader = new window.FileReader();
