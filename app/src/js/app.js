@@ -14,6 +14,7 @@ App = {
     web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
     App.web3 = new Web3(web3Provider);
     $.getJSON('Ipfs.json', function (aritifact) { 
+      console.log(aritifact);
       App.contracts = TruffleContract(aritifact);
       App.contracts.setProvider(web3Provider);
     });
@@ -26,8 +27,8 @@ App = {
   },
 
   handleSubmit: function (event) {
-    console.log(App.contracts.get());
-    console.log(App.web3.eth.coinbase);
+    console.log(App.contracts);
+    console.log(App.web3.eth.mining);
     event.preventDefault();
     const file = event.target[0].files[0];
     const reader = new window.FileReader();
