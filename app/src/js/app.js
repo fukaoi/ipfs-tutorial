@@ -13,10 +13,9 @@ App = {
 
     web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
     App.web3 = new Web3(web3Provider);
-    $.getJSON('Ipfs.json', function (data) {
-      var IpfsArtifact = data;
-      App.contracts.Ipfs = TruffleContract(IpfsArtifact);
-      App.contracts.Ipfs.setProvider(web3Provider);
+    $.getJSON('Ipfs.json', function (aritifact) { 
+      App.contracts = TruffleContract(aritifact);
+      App.contracts.setProvider(web3Provider);
     });
     return App.bindEvents();
   },
@@ -27,7 +26,7 @@ App = {
   },
 
   handleSubmit: function (event) {
-    console.log(App.contracts.Ipfs);
+    console.log(App.contracts.get());
     console.log(App.web3.eth.coinbase);
     event.preventDefault();
     const file = event.target[0].files[0];
