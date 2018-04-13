@@ -7,8 +7,6 @@ contract Ipfs {
   }
 
   mapping (uint => FileInfos) fileinfos;
-  // uint[] public files;
-  string public storedMsg;
 
   function setUploadFileInfo(uint _id, string _name, string _url) public {
     FileInfos storage fileinfo = fileinfos[_id];
@@ -18,14 +16,5 @@ contract Ipfs {
 
   function getUploadFileInfos(uint _id) public view returns(string, string) {
     return (fileinfos[_id].name, fileinfos[_id].url);
-  }
-
-  // メッセージを保存します。
-  function set(string _message) public {
-    storedMsg = _message;
-  }  
-
-  function get() public view returns(string) {
-    return storedMsg;
   }
 }
