@@ -1,17 +1,17 @@
 pragma solidity ^0.4.18;
 
 contract Ipfs {
-  struct FileInfos {
+
+  struct FileInfo {
     string name;
     string url;
   }
 
-  mapping (uint => FileInfos) fileinfos;
+  FileInfo[] public fileinfos;
 
-  function setUploadFileInfo(uint _id, string _name, string _url) public {
-    FileInfos storage fileinfo = fileinfos[_id];
-    fileinfo.name = _name;
-    fileinfo.url = _url;
+  function setUploadFileInfo(string _name, string _url) public {
+    FileInfo memory fileinfo = FileInfo(_name, _url);
+    fileinfos.push(fileinfo);
   }
 
   function getUploadFileInfos(uint _id) public view returns(string, string) {

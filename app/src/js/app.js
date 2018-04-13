@@ -16,7 +16,7 @@ App = {
       web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
       // App.contracts.deployed().then((test) => {console.log(test)});
       // console.log(App.contracts.deployed().then((aaa) => { console.log(aaa) }));
-      var address = '0x30b6875c93772d39dfa7a8066772dcfdaa206353';
+      var address = '0xd3038be72f853c33e6a847f96dfa1947fd2672f9';
       App.contract = web3.eth.contract(aritifact.abi).at(address);
       web3.eth.defaultAccount = web3.eth.accounts[0];
       console.log(App.contract.getUploadFileInfos(0));
@@ -46,7 +46,7 @@ App = {
       }
       const url = `https://ipfs.io/ipfs/${result[0].hash}`;
       $('#result').html(url);
-      App.contract.setUploadFileInfo(0, filename, url);
+      App.contract.setUploadFileInfo(filename, url);
     })
   }
 };
