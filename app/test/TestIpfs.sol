@@ -9,8 +9,7 @@ contract TestIpfs {
 
   function testContract() public {
     ipfs.getUploadFileInfos(0);
-    uint expected = 10000;
-
-    Assert.equal(expected, expected, "Owner should have 10000 MetaCoin initially");
+    uint expected = 1000;
+    Assert.equal(expected, expected, "initially");
   }
 } 
