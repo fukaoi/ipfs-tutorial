@@ -7,7 +7,7 @@ contract Ipfs {
     string url;
   }
 
-  FileInfo[] public fileinfos;
+  FileInfo[] fileinfos;
 
   function setUploadFileInfo(string _name, string _url) public {
     FileInfo memory fileinfo = FileInfo(_name, _url);
@@ -16,5 +16,9 @@ contract Ipfs {
 
   function getUploadFileInfo(uint _id) public view returns(string, string) {
     return (fileinfos[_id].name, fileinfos[_id].url);
+  }
+
+  function getLength() public view returns(uint) {
+    return fileinfos.length;
   }
 }
