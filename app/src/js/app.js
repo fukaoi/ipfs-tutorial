@@ -17,7 +17,7 @@ App = {
       var address = '0xc27904a7da65d0a7a16237a70f4a815214e646c8';
 
       App.contract = web3.eth.contract(aritifact.abi).at(address);
-      console.log(App.contract.gasPrices);
+      console.log(App.contract.getLength().c);
       for (var i = 0; i < App.contract.getLength(); i++) {
         console.log(App.contract.getUploadFileInfo(i));
       } 
@@ -49,7 +49,7 @@ App = {
       const url = `https://ipfs.io/ipfs/${hash}`;
       console.log(`${filename}`, `${url}`);  
       console.log(App.contract);
-      App.contract.setUploadFileInfo("aaaaaaaaaaa123456789", "12345678910111213134151617181920");
+      App.contract.setUploadFileInfo(filename, hash, { gas: 6000000, from: web3.eth.accounts[0] });
       $('#result').html(url);
     })
   }
