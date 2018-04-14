@@ -23,18 +23,27 @@
     <div class="row">
       <form id="target">
         <div class="col-md-2 col-md-offset-5" id="target">
-          <label for="inputFile" class="btn btn-default">ファイルを選択下さい
+          <label for="inputFile" class="btn btn-default">ファイル選択
             <input class="hide" type="file" id="inputFile" onchange="$('#file_name').text($(this).val())" />
           </label>
           <span id="file_name"></span>
           <br/>
           <br/>
-          <input class="btn btn-primary" type="submit" name="submit" value="ファイルのアップロード" id="test">
-        </div>
+          <input class="btn btn-primary" type="submit" name="submit" value=" アップロード"> </div>
       </form>
+      
+      <table class="table" style="margin-top: 200px">
+        <thead>
+          <tr>
+            <th scope="col">ファイル名</th>
+            <th scope="col">ファイルURL</th>
+          </tr>
+        </thead>
+        <tbody>
 
-      <div class="col-md-2 col-md-offset-5" id="result"></div>
-
+        </tbody>
+      </table>
+      
     </div>
   </div>
 
