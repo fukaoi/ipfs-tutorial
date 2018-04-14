@@ -14,7 +14,7 @@ contract Ipfs {
     fileinfos.push(fileinfo);
   }
 
-  function getUploadFileInfos(uint _id) public view returns(string, string) {
+  function getUploadFileInfo(uint _id) public view returns(string, string) {
     return (fileinfos[_id].name, fileinfos[_id].url);
   }
 }

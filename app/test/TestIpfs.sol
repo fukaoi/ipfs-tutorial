@@ -8,7 +8,8 @@ contract TestIpfs {
   Ipfs ipfs = Ipfs(DeployedAddresses.Ipfs());
 
   function testContract() public {
-    ipfs.getUploadFileInfos(0);
+    ipfs.setUploadFileInfo("test-file", "http://ipfs.io/test-file");
+    ipfs.getUploadFileInfo(0);
     uint expected = 1000;
     Assert.equal(expected, expected, "initially");
   }

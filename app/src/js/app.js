@@ -19,7 +19,7 @@ App = {
       var address = '0xd3038be72f853c33e6a847f96dfa1947fd2672f9';
       App.contract = web3.eth.contract(aritifact.abi).at(address);
       web3.eth.defaultAccount = web3.eth.accounts[0];
-      console.log(App.contract.getUploadFileInfos(0));
+      console.log(App.contract.getUploadFileInfo(0));
     });
     return App.bindEvents();
   },
