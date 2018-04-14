@@ -7,7 +7,7 @@ App = {
 
   init: function () {
     App.initIpfs();
-    App.initContract('0x83a4bd51282b57c1418fb1641c451403df6aac78');
+    App.initContract('0xeacc85f4d2578f7536b21bc3e0abe6f7d1826dfe');
     return App.bindEvents();
   },
 
@@ -22,14 +22,14 @@ App = {
       web3.eth.defaultAccount = web3.eth.coinbase;
       App.contract = web3.eth.contract(aritifact.abi).at(address);
       for (var i = 0; i < App.contract.getLength(); i++) {
-        console.log(App.contract.getUploadFileInfo(i));
+        infos = App.contract.getUploadFileInfo(i);
+        App.insertTemplate(infos[0], infos[1]);
       } 
     });
   },
 
   bindEvents: function () {
     $('#target').submit(App.handleSubmit);
-    $('#result').html = "";
   },
 
   handleSubmit: function (event) {
@@ -49,19 +49,17 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
-      App.contract.setUploadFileInfo(filename, hash, { gas: 6000000, from: web3.eth.accounts[0] });
+      App.contract.setUploadFileInfo(filename, hash, { gas: 10000000, from: web3.eth.defaultAccount });
       $('#result').html(url);
     })
   },
 
-  insertTemplate: function () {
+  insertTemplate: function (name, hash) {
     var body = '';
-    for(var i = 0; i < 10; i++){
-      body += '<tr>';
-      body += `<td>${i}</td>`    
-      body += `<td>${i}</td>`    
-      body += '</tr>'
-    }
+    body += '<tr>';
+    body += `<td>${name}</td>`    
+    body += `<td>${hash}</td>`    
+    body += '</tr>'
     $('tbody').prepend(body);
   }
 };
@@ -69,6 +67,5 @@ App = {
 $(function () {
   $(window).load(function () {
     App.init();
-    App.insertTemplate();
   });
 });
