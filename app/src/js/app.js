@@ -12,14 +12,15 @@ App = {
     App.ipfsApi = window.IpfsApi('localhost', '5001');
     var web3 = new Web3();
     $.getJSON('Ipfs.json', function (aritifact) { 
-      // App.contracts = new TruffleContract(aritifact);
       web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
-      // App.contracts.deployed().then((test) => {console.log(test)});
-      // console.log(App.contracts.deployed().then((aaa) => { console.log(aaa) }));
-      var address = '0xd3038be72f853c33e6a847f96dfa1947fd2672f9';
+      web3.eth.defaultAccount = web3.eth.coinbase;
+      var address = '0xcf2d4b8b29064dea8fd31d937fd6dbcec54b8dfe';
+
       App.contract = web3.eth.contract(aritifact.abi).at(address);
-      web3.eth.defaultAccount = web3.eth.accounts[0];
-      console.log(App.contract.getUploadFileInfo(0));
+      console.log(App.contract.gasPrices);
+      for (var i = 0; i < App.contract.getLength(); i++) {
+        console.log(App.contract.getUploadFileInfo(i));
+      } 
     });
     return App.bindEvents();
   },
@@ -39,14 +40,17 @@ App = {
 
   saveIpfs: function (reader, filename) {
     const buf = buffer.Buffer(reader.result)
-    App.ipfsApi.files.add(buf, (err, result) => { // Upload buffer to IPFS
+    App.ipfsApi.files.add(buf, (err, result) => {
       if(err) {
-        console.error(err)
-        return
+        console.error(err);
+        return;
       }
-      const url = `https://ipfs.io/ipfs/${result[0].hash}`;
+      const hash = result[0].hash;
+      const url = `https://ipfs.io/ipfs/${hash}`;
+      console.log(`${filename}`, `${url}`);  
+      console.log(App.contract);
+      App.contract.setUploadFileInfo("takachiaaaaaaaaaaa123456789fuck", "akira12345678910111213134151617181920");
       $('#result').html(url);
-      App.contract.setUploadFileInfo(filename, url);
     })
   }
 };
