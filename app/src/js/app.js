@@ -47,8 +47,6 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
-      console.log(`${filename}`, `${url}`);  
-      console.log(App.contract);
       App.contract.setUploadFileInfo(filename, hash, { gas: 6000000, from: web3.eth.accounts[0] });
       $('#result').html(url);
     })

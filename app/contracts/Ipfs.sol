@@ -4,18 +4,18 @@ contract Ipfs {
 
   struct FileInfo {
     string name;
-    string url;
+    string fileHash;
   }
 
   FileInfo[] fileinfos;
 
-  function setUploadFileInfo(string _name, string _url) public {
-    FileInfo memory fileinfo = FileInfo(_name, _url);
+  function setUploadFileInfo(string _name, string _hash) public {
+    FileInfo memory fileinfo = FileInfo(_name, _hash);
     fileinfos.push(fileinfo);
   }
 
   function getUploadFileInfo(uint _id) public view returns(string, string) {
-    return (fileinfos[_id].name, fileinfos[_id].url);
+    return (fileinfos[_id].name, fileinfos[_id].fileHash);
   }
 
   function getLength() public view returns(uint) {
