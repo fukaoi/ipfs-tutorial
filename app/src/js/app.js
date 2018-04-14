@@ -14,7 +14,7 @@ App = {
     $.getJSON('Ipfs.json', function (aritifact) { 
       web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
       web3.eth.defaultAccount = web3.eth.coinbase;
-      var address = '0xcf2d4b8b29064dea8fd31d937fd6dbcec54b8dfe';
+      var address = '0xc27904a7da65d0a7a16237a70f4a815214e646c8';
 
       App.contract = web3.eth.contract(aritifact.abi).at(address);
       console.log(App.contract.gasPrices);
@@ -49,7 +49,7 @@ App = {
       const url = `https://ipfs.io/ipfs/${hash}`;
       console.log(`${filename}`, `${url}`);  
       console.log(App.contract);
-      App.contract.setUploadFileInfo("takachiaaaaaaaaaaa123456789fuck", "akira12345678910111213134151617181920");
+      App.contract.setUploadFileInfo("aaaaaaaaaaa123456789", "12345678910111213134151617181920");
       $('#result').html(url);
     })
   }
