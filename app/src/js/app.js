@@ -49,7 +49,7 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
-      App.contract.setUploadFileInfo(filename, hash, { gas: 10000000, from: web3.eth.defaultAccount });
+      App.contract.setUploadFileInfo(filename, hash);
       $('#result').html(url);
     })
   },
@@ -58,7 +58,7 @@ App = {
     var body = '';
     body += '<tr>';
     body += `<td>${name}</td>`    
-    body += `<td>${hash}</td>`    
+    body += `<td>https://ipfs.io/ipfs/${hash}</td>`    
     body += '</tr>'
     $('tbody').prepend(body);
   }
