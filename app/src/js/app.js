@@ -4,32 +4,58 @@
 App = {
   ipfs: {},
   contract: {},
+  web3Provider: null,
 
   init: function () {
     App.initIpfs();
-    App.initContract('0xeacc85f4d2578f7536b21bc3e0abe6f7d1826dfe');
-    return App.bindEvents();
+    return App.initWeb3();
   },
 
   initIpfs: function() {
     App.ipfs = window.IpfsApi('localhost', '5001');    
   },
 
+  initWeb3: function () {
+    if (typeof web3 !== 'undefined') {
+      App.web3Provider = web3.currentProvider;
+    } else {
+      App.web3Provider = new Web3.providers.HttpPrivider('http://localhost:8545');
+    }
+    web3 = new Web3(App.web3Provider);
+    return App.initContract('0x88d17704407baf64f5f568d07f179d231de00732');
+  },
+
   initContract: function (address) {
     var web3 = new Web3();
     $.getJSON('Ipfs.json', function (aritifact) { 
-      web3.setProvider((new Web3.providers.HttpProvider('http://localhost:8545')));
-      web3.eth.defaultAccount = web3.eth.coinbase;
-      App.contract = web3.eth.contract(aritifact.abi).at(address);
-      for (var i = 0; i < App.contract.getLength(); i++) {
-        infos = App.contract.getUploadFileInfo(i);
-        App.insertTemplate(infos[0], infos[1]);
-      } 
+      // web3.eth.defaultAccount = web3.eth.coinbase;
+      App.contract.Ipfs = TruffleContract(aritifact);
+      App.contract.Ipfs.setProvider(App.web3Provider);
+
+
+      var instance;
+
+      App.contract.Ipfs.deployed().then(function (instance) {
+        console.log(instance);
+        adoptionInstance = instance;
+        return null;
+        // return adoptionInstance.getLength.call();
+      }).then(function(adopters) {
+        console.log(adopters);
+      }).catch(function(err) {
+        console.error(err);
+      });
     });
+
+    return App.bindEvents();
   },
 
   bindEvents: function () {
     $('#target').submit(App.handleSubmit);
+    // for (var i = 0; i < App.contract.getLength(); i++) {
+    //   infos = App.contract.getUploadFileInfo(i);
+    //   App.insertTemplate(infos[0], infos[1]);
+    // } 
   },
 
   handleSubmit: function (event) {
@@ -49,6 +75,7 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
+      console.log(web3.eth.defaultAccount);
       App.contract.setUploadFileInfo(filename, hash);
       $('#result').html(url);
     })
