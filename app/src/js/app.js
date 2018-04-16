@@ -2,7 +2,6 @@
 // before geth daemon startup, geth --dev --rpc --rpccorsdomain "*"'
 
 App = {
-  ipfs: {},
   contract: {},
   web3Provider: null,
 
@@ -21,30 +20,30 @@ App = {
     } else {
       App.web3Provider = new Web3.providers.HttpPrivider('http://localhost:8545');
     }
+    console.log(App.currentProvider);
     web3 = new Web3(App.web3Provider);
-    return App.initContract('0x88d17704407baf64f5f568d07f179d231de00732');
+    console.log(web3.eth);
+    return App.initContract();
   },
 
-  initContract: function (address) {
-    var web3 = new Web3();
+  initContract: function () {
     $.getJSON('Ipfs.json', function (aritifact) { 
-      // web3.eth.defaultAccount = web3.eth.coinbase;
-      App.contract.Ipfs = TruffleContract(aritifact);
-      App.contract.Ipfs.setProvider(App.web3Provider);
-
+      App.contract = TruffleContract(aritifact);
+      App.contract.setProvider(App.web3Provider);
+      App.contract.defaults({
+        gas: 1000000
+      })
 
       var instance;
-
-      App.contract.Ipfs.deployed().then(function (instance) {
-        console.log(instance);
-        adoptionInstance = instance;
-        return null;
-        // return adoptionInstance.getLength.call();
-      }).then(function(adopters) {
-        console.log(adopters);
-      }).catch(function(err) {
-        console.error(err);
-      });
+      App.contract.deployed().then(function (data) {
+        instance = data;
+        return instance.getLength();
+      }).then((res) => {
+        for (var i = 0; i < res; i++) {
+          infos = instance.getUploadFileInfo(i);
+          App.insertTemplate(infos[0], infos[1]);
+        } 
+      }) 
     });
 
     return App.bindEvents();
@@ -52,10 +51,6 @@ App = {
 
   bindEvents: function () {
     $('#target').submit(App.handleSubmit);
-    // for (var i = 0; i < App.contract.getLength(); i++) {
-    //   infos = App.contract.getUploadFileInfo(i);
-    //   App.insertTemplate(infos[0], infos[1]);
-    // } 
   },
 
   handleSubmit: function (event) {
@@ -75,8 +70,11 @@ App = {
       }
       const hash = result[0].hash;
       const url = `https://ipfs.io/ipfs/${hash}`;
-      console.log(web3.eth.defaultAccount);
-      App.contract.setUploadFileInfo(filename, hash);
+      var instance;
+      App.contract.deployed().then(function (instance) {
+        instance.setUploadFileInfo(filename, hash);
+      });
+      console.log(url);
       $('#result').html(url);
     })
   },
